@@ -1,9 +1,11 @@
 from ctypes.wintypes import MSG
-from pathlib import Path
+#from pathlib import Path
+from unipath import Path
 import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).ancestor(3)
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,10 +32,13 @@ DJANGO_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 )
 
 
-LOCAL_APPS = ()
+LOCAL_APPS = (
+    'applications.users',
+)
 
 THIRD_PARTY_APPS = ()
 
@@ -56,7 +61,7 @@ ROOT_URLCONF = 'usuarios.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.child('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
@@ -87,6 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
 
 LANGUAGE_CODE = 'en-us'
 
